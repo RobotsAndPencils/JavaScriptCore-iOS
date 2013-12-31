@@ -13,25 +13,21 @@ Pod::Spec.new do |s|
   s.preserve_paths = 'Build/libJavaScriptCore.a'
   s.libraries      = 'stdc++', 'icucore', 'JavaScriptCore'
   s.requires_arc   = false
-  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(PODS_ROOT)/JavaScriptCore-iOS/Build"' }
+  s.xcconfig       = { 'LIBRARY_SEARCH_PATHS' => '"$(PODS_ROOT)/JavaScriptCore-iOS/Build"' }
 
-  def s.pre_install(pod, target_definition)
-    Dir.chdir(pod.root) do
-      system <<CMD
-mkdir Build
+  s.prepare_command = <<-CMD
+    mkdir -p Build
 
-xcodebuild -project WTF/WTF.xcodeproj -alltargets clean
-xcodebuild -project WTF/WTF.xcodeproj -target "WTF iOS" -configuration Release -sdk iphoneos
-xcodebuild -project WTF/WTF.xcodeproj -target "WTF iOS" -configuration Release -sdk iphonesimulator -arch i386
-xcodebuild -project WTF/WTF.xcodeproj -target "Combine iOS libs" -configuration Release
+    xcodebuild -project WTF/WTF.xcodeproj -alltargets clean
+    xcodebuild -project WTF/WTF.xcodeproj -target "WTF iOS" -configuration Release -sdk iphoneos
+    xcodebuild -project WTF/WTF.xcodeproj -target "WTF iOS" -configuration Release -sdk iphonesimulator -arch i386
+    xcodebuild -project WTF/WTF.xcodeproj -target "Combine iOS libs" -configuration Release
 
-xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -alltargets clean
-xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "JavaScriptCore iOS" -configuration Release -sdk iphoneos
-xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "JavaScriptCore iOS" -configuration Release -sdk iphonesimulator -arch i386
-xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "Combine iOS libs" -configuration Release
+    xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -alltargets clean
+    xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "JavaScriptCore iOS" -configuration Release -sdk iphoneos
+    xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "JavaScriptCore iOS" -configuration Release -sdk iphonesimulator -arch i386
+    xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "Combine iOS libs" -configuration Release
 
-echo "DONE!"
-CMD
-    end
-  end
+    echo "DONE!"
+  CMD
 end
