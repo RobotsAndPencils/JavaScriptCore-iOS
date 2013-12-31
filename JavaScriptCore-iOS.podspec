@@ -23,12 +23,12 @@ mkdir Build
 xcodebuild -project WTF/WTF.xcodeproj -alltargets clean
 xcodebuild -project WTF/WTF.xcodeproj -target "WTF iOS" -configuration Release -sdk iphoneos
 xcodebuild -project WTF/WTF.xcodeproj -target "WTF iOS" -configuration Release -sdk iphonesimulator -arch i386
-xcodebuild -project WTF/WTF.xcodeproj -target "Combine iOS lib" -configuration Release
+xcodebuild -project WTF/WTF.xcodeproj -target "Combine iOS libs" -configuration Release
 
 xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -alltargets clean
 xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "JavaScriptCore iOS" -configuration Release -sdk iphoneos
 xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "JavaScriptCore iOS" -configuration Release -sdk iphonesimulator -arch i386
-xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "Combine iOS lib" -configuration Release
+xcodebuild -project JavaScriptCore/JavaScriptCore.xcodeproj -target "Combine iOS libs" -configuration Release
 
 echo "DONE!"
 CMD
